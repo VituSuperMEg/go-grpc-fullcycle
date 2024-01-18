@@ -28,7 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CategoryServiceClient interface {
 	CreateCategory(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*CategoryResponse, error)
-	ListCategories(ctx context.Context, in *Blank, opts ...grpc.CallOption) (*CategoryResponse, error)
+	ListCategories(ctx context.Context, in *Blank, opts ...grpc.CallOption) (*CategoryList, error)
 }
 
 type categoryServiceClient struct {
@@ -48,8 +48,8 @@ func (c *categoryServiceClient) CreateCategory(ctx context.Context, in *Category
 	return out, nil
 }
 
-func (c *categoryServiceClient) ListCategories(ctx context.Context, in *Blank, opts ...grpc.CallOption) (*CategoryResponse, error) {
-	out := new(CategoryResponse)
+func (c *categoryServiceClient) ListCategories(ctx context.Context, in *Blank, opts ...grpc.CallOption) (*CategoryList, error) {
+	out := new(CategoryList)
 	err := c.cc.Invoke(ctx, CategoryService_ListCategories_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -62,7 +62,7 @@ func (c *categoryServiceClient) ListCategories(ctx context.Context, in *Blank, o
 // for forward compatibility
 type CategoryServiceServer interface {
 	CreateCategory(context.Context, *CategoryRequest) (*CategoryResponse, error)
-	ListCategories(context.Context, *Blank) (*CategoryResponse, error)
+	ListCategories(context.Context, *Blank) (*CategoryList, error)
 	mustEmbedUnimplementedCategoryServiceServer()
 }
 
@@ -73,7 +73,7 @@ type UnimplementedCategoryServiceServer struct {
 func (UnimplementedCategoryServiceServer) CreateCategory(context.Context, *CategoryRequest) (*CategoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCategory not implemented")
 }
-func (UnimplementedCategoryServiceServer) ListCategories(context.Context, *Blank) (*CategoryResponse, error) {
+func (UnimplementedCategoryServiceServer) ListCategories(context.Context, *Blank) (*CategoryList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCategories not implemented")
 }
 func (UnimplementedCategoryServiceServer) mustEmbedUnimplementedCategoryServiceServer() {}

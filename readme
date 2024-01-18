@@ -2,7 +2,7 @@
 Projeto ddo curso da fullcycle
 
 ```
-   protoc --go_out=. --go_grpc_out=. proto/course_category.proto
+   protoc --go_out=. --go-grpc_out=. proto/course_category.proto
 ```
 
 ## Evans

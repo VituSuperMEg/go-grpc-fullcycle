@@ -10,11 +10,11 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/lib/pq"
 )
 
 func main() {
-	db, err := sql.Open("sqlite3", "./db.sqlite")
+	db, err := sql.Open("postgres", "postgres://postgres:3640@localhost/grpc-go?sslmode=disable")
 	if err != nil {
 		panic(err)
 	}
